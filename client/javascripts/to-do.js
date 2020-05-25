@@ -12,6 +12,13 @@ let controller = function() {
       $(".comments").append($new_comment);
       //$new_comment.fadeIn();
       $(".comment-input input").val("");
+
+      //log the list of paragraph elements
+      //store the list of paragraph elements
+      localStorage.setItem("commentsList", $(".comments").html());
+      $(".comments").html(localStorage.getItem("commentsList"));
+      console.log($(".comments").html)
+      console.log(localStorage.getItem("commentsList"));
     }
   };
 
@@ -26,4 +33,16 @@ let controller = function() {
   });
 };
 
-$(document).ready(controller);
+let deleteHandler = () => {
+  console.log("dH")
+  localStorage.removeItem("commentsList")
+  window.location.reload();
+}
+
+$(document).ready(() => {
+  console.log("ready")
+  //select the delete button
+  let buttonElem = document.querySelectorAll('button')[1];
+  buttonElem.addEventListener('click', deleteHandler);
+  controller();
+});
